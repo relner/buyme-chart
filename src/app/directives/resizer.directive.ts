@@ -10,20 +10,28 @@ export class ResizerDirective {
   charSize = { width: 400, height: 400}
 
   ngOnInit() {
-    this.elementRef.nativeElement.style.position = 'relative'
+    this.setSizeToElement();
     
+    let resizingWrap = this.cretaResizingWrapp();
+    this.resizer(resizingWrap);
+  }
+
+  setSizeToElement(){
     this.charSize = JSON.parse(localStorage.getItem('charSize')) || this.charSize;
+    this.elementRef.nativeElement.style.position = 'relative'    
     this.elementRef.nativeElement.style.width = this.charSize.width + 'px';
     this.elementRef.nativeElement.style.height = this.charSize.height + 'px';
+  }
 
+  cretaResizingWrapp(){
     let myDiv = document.createElement('div');
     myDiv.setAttribute("style", "background-color: blue; width: 20px; height: 20px; position: absolute; right: 0; bottom: 0");
     this.elementRef.nativeElement.appendChild(myDiv);
 
-    this.resizerJS(myDiv);
+    return myDiv;
   }
 
-  resizerJS(block_r){
+  resizer(block_r){
 
     let delta_w = 0;
     let delta_h = 0;
@@ -47,16 +55,8 @@ export class ResizerDirective {
     }
 
     function resizeBlock(obj_event) {
-
       block.style.width = delta_w + obj_event.pageX + "px";
       block.style.height = delta_h + obj_event.pageY + "px";
-
-      if (block.offsetLeft + block.clientWidth > document.documentElement.clientWidth) {
-        block.style.width = (document.documentElement.clientWidth - block.offsetLeft) + "px";
-      }
-      if (block.offsetTop + block.clientHeight > document.documentElement.clientHeight) { 
-        block.style.height = (document.documentElement.clientHeight - block.offsetTop) + "px";
-      }
     }
   }
 
