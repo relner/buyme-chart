@@ -4,11 +4,13 @@ import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
+import { ResizerDirective } from './directives/resizer.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
+    ResizerDirective
   ],
   imports: [
     BrowserModule,
