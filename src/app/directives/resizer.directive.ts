@@ -5,10 +5,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 })
 export class ResizerDirective {
 
-  constructor(private elementRef: ElementRef) { 
-    console.log(this);
-    console.info("----> ", elementRef.nativeElement);
-  }
+  constructor(private elementRef: ElementRef) { }
 
   charSize = { width: 400, height: 400}
 
@@ -27,20 +24,20 @@ export class ResizerDirective {
   }
 
   resizerJS(block_r){
-    let block;
+
     let delta_w = 0;
     let delta_h = 0;
 
-    block = this.elementRef.nativeElement;
+    let block = this.elementRef.nativeElement;
     document.onmouseup = clearXY;
     block_r.onmousedown = saveWH;
 
     function saveWH(obj_event) {
-      let w_block = block.clientWidth;
-      let h_block = block.clientHeight;
-      delta_w = w_block - obj_event.pageX;
-      delta_h = h_block - obj_event.pageY;
+      delta_w = block.clientWidth - obj_event.pageX;
+      delta_h = block.clientHeight - obj_event.pageY;
+
       document.addEventListener("mousemove", resizeBlock, false);
+      
       return false; 
     }
 
@@ -50,10 +47,9 @@ export class ResizerDirective {
     }
 
     function resizeBlock(obj_event) {
-      let new_w = delta_w + obj_event.pageX;
-      let new_h = delta_h + obj_event.pageY;
-      block.style.width = new_w + "px";
-      block.style.height = new_h + "px";
+
+      block.style.width = delta_w + obj_event.pageX + "px";
+      block.style.height = delta_h + obj_event.pageY + "px";
 
       if (block.offsetLeft + block.clientWidth > document.documentElement.clientWidth) {
         block.style.width = (document.documentElement.clientWidth - block.offsetLeft) + "px";
