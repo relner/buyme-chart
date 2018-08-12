@@ -36,11 +36,10 @@ export class ResizerDirective {
     block_r.onmousedown = saveWH;
 
     function saveWH(obj_event) {
-      let point = [obj_event.pageX, obj_event.pageY];
       let w_block = block.clientWidth;
       let h_block = block.clientHeight;
-      delta_w = w_block - point[0];
-      delta_h = h_block - point[1];
+      delta_w = w_block - obj_event.pageX;
+      delta_h = h_block - obj_event.pageY;
       document.addEventListener("mousemove", resizeBlock, false);
       return false; 
     }
@@ -51,9 +50,8 @@ export class ResizerDirective {
     }
 
     function resizeBlock(obj_event) {
-      let point = [obj_event.pageX, obj_event.pageY];
-      let new_w = delta_w + point[0];
-      let new_h = delta_h + point[1];
+      let new_w = delta_w + obj_event.pageX;
+      let new_h = delta_h + obj_event.pageY;
       block.style.width = new_w + "px";
       block.style.height = new_h + "px";
 
