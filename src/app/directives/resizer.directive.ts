@@ -6,8 +6,11 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class ResizerDirective {
 
   constructor(private elementRef: ElementRef) { }
-
   charSize = { width: 400, height: 400, left: 0, top: 0}
+  delta_w: number;
+  delta_h: number;
+  resizeFlag: boolean;
+  moveFlag: boolean;
 
   ngOnInit() {
     this.setSizeToElement();
@@ -35,11 +38,6 @@ export class ResizerDirective {
 
     return [myResizer, myMover];
   }
-
-  delta_w: number;
-  delta_h: number;
-  resizeFlag: boolean;
-  moveFlag: boolean;
   
   resizer(block_r){
 
