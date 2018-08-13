@@ -70,7 +70,7 @@ export class ChartComponent implements OnInit {
                        ("00" + (new Date(today.getFullYear(), today.getMonth(), today.getDate() - i).getMonth() + 1).toString()).slice(-2 ) + "-" +
                        ("00" + (new Date(today.getFullYear(), today.getMonth(), today.getDate() - i).getDate()).toString()).slice(-2 )
     }
-    return weeksArray
+    return weeksArray.reverse();
   }
 
 }
