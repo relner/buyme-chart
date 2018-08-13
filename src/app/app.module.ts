@@ -5,18 +5,22 @@ import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
 import { ResizerDirective } from './directives/resizer.directive';
+import { DataService } from './services/data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChartComponent,
     ResizerDirective
+    
   ],
   imports: [
     BrowserModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -31,8 +31,8 @@ export class ResizerDirective {
   cretaResizingWrapp(){
     let myResizer = document.createElement('div');
     let myMover = document.createElement('div');
-    myResizer.setAttribute("style", "background-color: blue; width: 10px; height: 10px; position: absolute; right: 0; bottom: 0");
-    myMover.setAttribute("style", "background-color: red; width: 10px; height: 10px; position: absolute; right: 0; top: 0");
+    myResizer.setAttribute("style", "background-color: blue; width: 14px; height: 14px; position: absolute; right: 0; bottom: 0");
+    myMover.setAttribute("style", "background-color: red; width: 14px; height: 14px; position: absolute; right: 0; top: 0");
     this.elementRef.nativeElement.appendChild(myResizer);
     this.elementRef.nativeElement.appendChild(myMover);
 
