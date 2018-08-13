@@ -28,29 +28,29 @@ export class ChartComponent implements OnInit {
  
   getAllData(){
 
-    let daysNumber = 7; 
-
-    let _lineChartData = []; 
+    let days = this.getWeekDays(7);
+ 
+    let _lineChartData = [];
     let _lineChartLabels = [];
     let count = 0;
-
-    for (let i = 0; i < daysNumber; i++) {
+ 
+    for (let i = 0; i < days.length; i++) {
       
-      this.dataService.getAllData({date: `2016-03-0${i+1}`, symbols: 'USD,AUD,CAD'}).subscribe(data => {
-        count++ 
-
-          _lineChartLabels[i] = `2016-03-0${i+1}`;
-
+      this.dataService.getAllData({date: days[i], symbols: 'USD,AUD,CAD'}).subscribe(data => {
+        count++
+ 
+          _lineChartLabels[i] = days[i];
+ 
           for (let j = 0; j < Object.keys(data.rates).length; j++) {
             if(_lineChartData[j] == undefined) _lineChartData[j] = {data: [], label: ''}
             _lineChartData[j].data[i] = data.rates[Object.keys(data.rates)[j]];
             _lineChartData[j].label = Object.keys(data.rates)[j];
           }
-
-          if(count == daysNumber) { 
+ 
+          if(count == days.length) {
             this.lineChartData = _lineChartData;
             this.lineChartLabels = _lineChartLabels;
-
+ 
             //show the char
             setTimeout(() => { this.myShowFlag = true; }, 0);
           }
@@ -58,8 +58,19 @@ export class ChartComponent implements OnInit {
       )
       
     }
-
+ 
     
+  }
+ 
+  getWeekDays(dayNubbers){
+    let weeksArray = [];
+    const today = new Date();
+    for (let i = 0; i < dayNubbers; i++) {
+        weeksArray[i] = ("0000" + (new Date(today.getFullYear(), today.getMonth(), today.getDate() - i)).getFullYear().toString()).slice(-4) + "-" +
+                       ("00" + (new Date(today.getFullYear(), today.getMonth(), today.getDate() - i).getMonth() + 1).toString()).slice(-2 ) + "-" +
+                       ("00" + (new Date(today.getFullYear(), today.getMonth(), today.getDate() - i).getDate()).toString()).slice(-2 )
+    }
+    return weeksArray
   }
 
 }
